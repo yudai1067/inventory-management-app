@@ -18,7 +18,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from inventory.views import index
-from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.views.generic.base import RedirectView
 
@@ -29,4 +28,6 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
 ]
 if settings.DEBUG:
+    from debug_toolbar.toolbar import debug_toolbar_urls
+
     urlpatterns += debug_toolbar_urls()
