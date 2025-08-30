@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block nav_title %}
+  ユーザー登録
+{% endblock %}
+{% block title %}
+  ユーザー登録
+{% endblock %}
+
+{% block content %}
+  {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        {% for error in form.errors.values %}
+          {% for msg in error %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <form method="post" action="{% url 'accounts-register' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="user-username" class="form-label">ユーザー名</label>
+      <input type="text" class="form-control" id="user-username" name="username" value="{{ form.username.value }}" />
+    </div>
+    <div class="mb-3">
+      <label for="user-password" class="form-label">パスワード</label>
+      <input type="password" class="form-control" id="user-password" name="password" />
+    </div>
+    <button type="submit" class="btn btn-primary">登録する</button>
+    <a href="{% url 'accounts-login' %}" class="btn btn-secondary ms-2">ログイン画面へ</a>
+  </form>
+{% endblock %}

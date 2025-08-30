@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block nav_title %}
+  在庫追加
+{% endblock %}
+{% block title %}
+  在庫追加
+{% endblock %}
+
+{% block content %}
+  {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        {% for error in form.errors.values %}
+          {% for msg in error %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <form method="post" action="/inventory/create">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="product-name" class="form-label">商品名</label>
+      <input type="text" class="form-control" id="product-name" name="name" value="{{ form.name.value }}" />
+    </div>
+    <div class="mb-3">
+      <label for="product-sku" class="form-label">SKU</label>
+      <input type="text" class="form-control" id="product-sku" name="sku" aria-labelledby="skuHelpBlock" value="{{ form.sku.value }}" />
+      <div id="skuHelpBlock" class="form-text">SKUは他の商品と重複できません</div>
+    </div>
+    <div class="mb-3">
+      <label for="product-description" class="form-label">商品説明</label>
+      <textarea class="form-control" id="product-description" rows="3" name="description">{{ form.description.value }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label for="product-price" class="form-label">価格</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="product-price" name="price" value="{{ form.price.value }}" />
+        <span class="input-group-text">円</span>
+      </div>
+      <div class="form-text">数値に「,」が含まれる場合は削除されて登録されます</div>
+    </div>
+    <div class="mb-3">
+      <label for="inventory-quantity" class="form-label">在庫数</label>
+      <input type="number" class="form-control" id="inventory-quantity" name="quantity" value="{{ form.quantity.value }}" />
+    </div>
+    <button type="submit" class="btn btn-primary">追加する</button>
+    <a href="/inventory" class="btn btn-secondary ms-2">戻る</a>
+  </form>
+{% endblock %}

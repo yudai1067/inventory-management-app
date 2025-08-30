@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block nav_title %}
+  商品詳細
+{% endblock %}
+{% block title %}
+  商品詳細
+{% endblock %}
+
+{% block content %}
+  {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        {% for error in form.errors.values %}
+          {% for msg in error %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <div class="form-check form-switch mb-3">
+    <input class="form-check-input" type="checkbox" role="switch" id="edit-product-switch" />
+    <label class="form-check-label" for="edit-product-switch">編集モード: OFF</label>
+  </div>
+  <form method="post" action="{% url 'inventory-update' product_id %}" id="product-form">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="product-name" class="form-label">商品名</label>
+      <input type="text" class="form-control" id="product-name" name="name" value="{{ form.name.value }}" disabled />
+    </div>
+    <div class="mb-3">
+      <label for="product-sku" class="form-label">SKU</label>
+      <input type="text" class="form-control" id="product-sku" name="sku" aria-labelledby="skuHelpBlock" value="{{ form.sku.value }}" disabled />
+      <div id="skuHelpBlock" class="form-text">SKUは他の商品と重複できません</div>
+    </div>
+    <div class="mb-3">
+      <label for="product-description" class="form-label">商品説明</label>
+      <textarea class="form-control" id="product-description" rows="3" name="description" disabled>{{ form.description.value }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label for="product-price" class="form-label">価格</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="product-price" name="price" value="{{ form.price.value }}" disabled />
+        <span class="input-group-text">円</span>
+      </div>
+      <div class="form-text">数値に「,」が含まれる場合は削除されて登録されます</div>
+    </div>
+    <div class="mb-3">
+      <label for="inventory-quantity" class="form-label">在庫数</label>
+      <input type="number" class="form-control" id="inventory-quantity" name="quantity" value="{{ form.quantity.value }}" disabled />
+    </div>
+    <button type="submit" class="btn btn-primary" disabled>更新する</button>
+    <a href="/inventory" class="btn btn-secondary ms-2">戻る</a>
+  </form>
+{% endblock %}
+{% block script %}
+  {% load static %}
+  <script src="{% static 'inventory/js/detail.js' %}"></script>
+{% endblock %}
