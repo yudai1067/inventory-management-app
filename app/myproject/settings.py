@@ -153,3 +153,4 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 LOGIN_REDIRECT_URL = "/inventory/"
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(',')
