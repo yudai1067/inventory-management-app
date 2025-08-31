@@ -9,5 +9,4 @@ urlpatterns = [
     path("update/<int:product_id>", views.update, name="inventory-update"),
     path("delete/<int:product_id>", views.delete, name="inventory-delete"),
     path("download", views.download, name="inventory-download"),
-    # path("create_dummy_data", views.create_dummy_data, name="inventory-dummy"),
 ]

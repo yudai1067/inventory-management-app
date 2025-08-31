@@ -152,24 +152,3 @@ def download(request):
             ]
         )
     return response
-
-
-# def create_dummy_data(request):
-#     for i in range(100):
-#         with transaction.atomic():
-#             name = str(i + 1)
-#             sku = str(i + 1)
-#             description = str(i + 1)
-#             price = i + 1
-#             user_id = 1
-#             product = Products(
-#                 name=name,
-#                 sku=sku,
-#                 description=description,
-#                 price=price,
-#                 user_id=user_id,
-#             )
-#             product.save()
-#             quantity = i + 1
-#             inventory = Inventory(quantity=quantity, product=product)
-#             inventory.save()
