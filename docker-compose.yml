@@ -8,3 +8,7 @@ services:
       - ./app:/usr/src/app
     environment:
       - DEBUG=true
+      - ALLOWED_HOSTS=localhost
+      - CSRF_TRUSTED_ORIGINS=http://localhost
+    command: >
+      sh -c "pip install -r requirements-dev.txt && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
