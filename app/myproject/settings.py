@@ -70,6 +70,9 @@ MIDDLEWARE = [
 if settings.DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": lambda request: True,
+    }
 
 ROOT_URLCONF = "myproject.urls"
 
@@ -150,9 +153,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
-}
 
 LOGIN_REDIRECT_URL = "/inventory/"
 CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
