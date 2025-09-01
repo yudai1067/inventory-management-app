@@ -17,7 +17,7 @@ logger.setLevel(logging.DEBUG)
 
 @login_required
 def index(request):
-    products = Products.objects.select_related("inventory").filter(user=request.user)
+    products = Products.objects.select_related("inventory").filter(user=request.user).order_by("id")
     paginator = Paginator(products, 10)
     page_num = request.GET.get("page")
     page_obj = paginator.get_page(page_num)
