@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView
 from .forms import UserForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 import logging
 
 logger = logging.getLogger(__name__)
@@ -41,6 +42,7 @@ def register(request):
     return render(request, "accounts/register.html", context)
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect("accounts-login")
